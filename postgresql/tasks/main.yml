@@ -1,0 +1,35 @@
+---
+# tasks file for postgresql
+
+- name: Install
+  ansible.builtin.apt:
+    name:
+      - postgresql
+      - postgresql-contrib
+      - libpq-dev
+      - python3-psycopg2
+    state: present
+
+- name: Check postgresql initialization
+  ansible.builtin.stat:
+    path: "{{ postgresql_data_dir }}/pg_hba.conf"
+  register: postgres_data
+
+- name: Delete dir
+  ansible.builtin.file:
+    path: "{{ postgresql_data_dir }}"
+    state: absent
+  when: not postgres_data.stat.exists
+
+- name: Initialize postgresql
+  ansible.builtin.shell: "{{ postgresql_bin_path }}/initdb -D {{ postgresql_data_dir }}"
+  become: true
+  become_user: postgres
+  when: not postgres_data.stat.exists
+
+- name: Service
+  ansible.builtin.service:
+    name: postgresql
+    state: started
+    enabled: true
+

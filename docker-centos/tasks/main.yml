@@ -1,0 +1,22 @@
+---
+# tasks file for docker-centos
+- name: Yum utils
+  yum:
+    name: yum-utils
+    state: latest
+
+- name: Add repo
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+
+- name: Install Docker
+  package:
+    name: docker-ce
+    state: latest
+
+- name: Start service
+  service:
+    name: docker
+    state: started
+    enabled: true
