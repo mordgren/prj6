@@ -1,5 +1,5 @@
 ---
-- name: Instll docker on Ubuntu vm2
+- name: Install docker on Ubuntu vm2
   hosts: vm2
   gather_facts: false
   remote_user: ansible
@@ -7,7 +7,7 @@
   roles:
    - docker-ubuntu
 
-- name: Instll docker on CemtOS 8 vm3
+- name: Install docker on CemtOS 8 vm3
   hosts: vm3
   gather_facts: false
   remote_user: ansible
@@ -15,7 +15,7 @@
   roles:
    - docker-centos
 
-- name: Instll postgressql on Ubuntu vm1
+- name: Install postgressql on Ubuntu vm1
   hosts: database
   gather_facts: false
   become: true
