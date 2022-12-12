@@ -7,7 +7,7 @@
   roles:
    - docker-ubuntu
 
-- name: Install docker on CemtOS 8 vm3
+- name: Install docker on CentOS 8 vm3
   hosts: vm3
   gather_facts: false
   remote_user: ansible
